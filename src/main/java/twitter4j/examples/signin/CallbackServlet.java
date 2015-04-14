@@ -39,6 +39,7 @@ import java.io.IOException;
 public class CallbackServlet extends HttpServlet {
     private static final long serialVersionUID = 1657390011452788111L;
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
         RequestToken requestToken = (RequestToken) request.getSession().getAttribute("requestToken");
