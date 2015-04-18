@@ -24,10 +24,11 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package twitter4j.examples.signin;
+package twitterApi;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import twitter4j.auth.RequestToken;
 
 import javax.servlet.ServletException;
@@ -35,27 +36,47 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import static java.lang.System.out;
+import java.util.Date;
+import java.util.List;
+import twitter4j.Paging;
+import twitter4j.RateLimitStatus;
+import twitter4j.Status;
+import twitter4j.URLEntity;
 import twitter4j.User;
+import twitter4j.auth.AccessToken;
 
-public class CallbackServlet extends HttpServlet {
-    private static final long serialVersionUID = 1657390011452788111L;
+public class SigninServlet extends HttpServlet {
+    private static final long serialVersionUID = -6205814293093350242L;
+    
+    private final static String CONSUMER_KEY = "FjMjYxxLFAumEp2kuW4t0kMYj";
+    private final static String CONSUMER_KEY_SECRET = "fkUg2WQo1z80cNbepPsYzLzlu3Gu1B5lDbUUdzmmubv0hXE64f";
+    //private final static String ACCESS_TOKEN = "135157353-4asswUtw0V8AoNG2zylBPIGPdwdcL49NCy5EfFRo";
+    //private final static String ACCESS_TOKEN_SECRET = "fWCNaso7XOVxIjCS5E6m48K9Wqy1HvZhMm6CDh7WWUXFi";
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
-        RequestToken requestToken = (RequestToken) request.getSession().getAttribute("requestToken");
-        String verifier = request.getParameter("oauth_verifier");
-        PrintWriter out = response.getWriter();
+         
+        //Instantiate a re-usable and thread-safe factory
+        TwitterFactory twitterFactory = new TwitterFactory();
+ 
+        //Instantiate a new Twitter instance
+        Twitter twitter = twitterFactory.getInstance();
+ 
+        //setup OAuth Consumer Credentials
+        twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_KEY_SECRET);
+        request.getSession().setAttribute("twitter", twitter);
         try {
-            twitter.getOAuthAccessToken(requestToken, verifier);
-            request.getSession().removeAttribute("requestToken");
-            User currentUser = (User) twitter.showUser(twitter.getId());
-            String userImage = currentUser.getBiggerProfileImageURL();
-            out.print(userImage);
+            StringBuffer callbackURL = request.getRequestURL();
+            int index = callbackURL.lastIndexOf("/");
+            callbackURL.replace(index, callbackURL.length(), "").append("/callback");
+
+            RequestToken requestToken = twitter.getOAuthRequestToken(callbackURL.toString());
+            request.getSession().setAttribute("requestToken", requestToken);
+            response.sendRedirect(requestToken.getAuthenticationURL());
+
         } catch (TwitterException e) {
             throw new ServletException(e);
         }
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
+
     }
 }

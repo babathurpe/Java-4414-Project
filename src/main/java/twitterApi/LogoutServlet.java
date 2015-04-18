@@ -24,31 +24,20 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-package twitter4j.examples.signin;
+package twitterApi;
 
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
 import java.io.IOException;
 
-public class PostServlet extends HttpServlet {
-    private static final long serialVersionUID = 2132731135996613711L;
+public class LogoutServlet extends HttpServlet {
+    private static final long serialVersionUID = -4433102460849019660L;
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //request.setCharacterEncoding("UTF-8");
-        String text = request.getParameter("twitterUpdate");
-        //System.out.println(text);
-        Twitter twitter = (Twitter)request.getSession().getAttribute("twitter");
-        try {
-            twitter.updateStatus(text);
-        } catch (TwitterException e) {
-            throw new ServletException(e);
-        }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().invalidate();
         response.sendRedirect(request.getContextPath()+ "/");
     }
 }

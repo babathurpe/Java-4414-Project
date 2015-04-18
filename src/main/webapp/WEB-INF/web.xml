@@ -30,15 +30,15 @@
     </servlet>
     <servlet>
         <servlet-name>savedUser1</servlet-name>
-        <servlet-class>twitter4j.examples.signin.SavedUser1Timelines</servlet-class>
+        <servlet-class>twitterApi.SavedUser1Timelines</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>savedUser2</servlet-name>
-        <servlet-class>twitter4j.examples.signin.SavedUser2Timelines</servlet-class>
+        <servlet-class>twitterApi.SavedUser2Timelines</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>savedUser3</servlet-name>
-        <servlet-class>twitter4j.examples.signin.SavedUser3Timelines</servlet-class>
+        <servlet-class>twitterApi.SavedUser3Timelines</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>signin</servlet-name>
@@ -64,11 +64,11 @@
         <servlet-name>savedUser1</servlet-name>
         <url-pattern>/savedUser1</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>savedUser2</servlet-name>
         <url-pattern>/savedUser2</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>savedUser3</servlet-name>
         <url-pattern>/savedUser3</url-pattern>
     </servlet-mapping>
