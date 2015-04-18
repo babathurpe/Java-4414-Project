@@ -1,15 +1,3 @@
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="DBConnection.DbConnection"%>
-<%@page import="java.util.logging.Level"%>
-<%@page import="java.util.logging.Logger"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="twitter4j.Twitter"%>
-<%@page import="java.util.List"%>
-<%@page import="twitter4j.Status"%>
-<%@page import="twitter4j.Paging"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="tag" tagdir="/WEB-INF/tags" %>
@@ -80,7 +68,7 @@
                     </div>
 
                     <div class="col-sm-6 col-md-3">
-                        <h3>Welcome ${twitter.screenName} (${twitter.id})</h3>
+                        <h3 style="color: red;">Welcome @${twitter.screenName}</h3>
                         
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Choose Time Line</button>
@@ -152,7 +140,7 @@
                 <footer class="margin-tb-3">
                     <div class="row">
                         <div class="col-lg-12">
-                            <p class="text-center">Copyright &copy; Sitename 2015</p>
+                            <p class="text-center">&copy; 2015 | Babatope - Java Twitter API Project | Built using Twitter4J by Yasuke Yamamoto</p>
                         </div>
                     </div>
                 </footer>
