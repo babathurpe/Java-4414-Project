@@ -80,7 +80,8 @@
                     </div>
 
                     <div class="col-sm-6 col-md-3">
-                        <h3>Welcome ${twitter.screenName} (${twitter.id})</h3> 
+                        <h3>Welcome ${twitter.screenName} (${twitter.id})</h3>
+                        
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
                             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Choose Time Line</button>
                         <br><!-- Large modal -->

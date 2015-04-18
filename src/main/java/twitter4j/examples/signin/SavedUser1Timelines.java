@@ -45,22 +45,27 @@ public class SavedUser1Timelines extends HttpServlet {
         Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
         try {
             String userId = String.valueOf(twitter.getId());
-            String user1 = getRow("Select timeline1 from timelines where user_id=?", userId);
-            System.out.println("User - " + user1);
+            String savedUser = getRow("Select timeline1 from timelines where user_id=?", userId);
             PrintWriter out = response.getWriter();
-            if (user1.isEmpty()) {
+            if (savedUser.isEmpty()) {
                 out.println("<h4>You have no user saved.</h4>");
                 out.println("<p>Click on 'Choose Timeline' above to save a list of whose recent tweets you want to see.</p>");
             } else {
-                List<Status> statuses = twitter.getUserTimeline("@" + user1);
-                out.println("<h3>@" + user1 + "'s Timeline</h3><hr>");
-                out.println("<div class=\"caption\">");
-                for (Status status : statuses) {
-                    status.getUser().getId();
-                    String url = status.getUser().getMiniProfileImageURL();
-                    out.println("<p><img class=\"img-thumbnail\" src=" + url + "/> @" + status.getUser().getScreenName() + "<br/> " + status.getText() + "<br/> Created: <em class=\"success\">" + status.getCreatedAt() + "</em></p>");
+                List<Status> statuses = twitter.getUserTimeline("@" + savedUser);
+                if (statuses == null) {
+                    out.println("<h3 style=\"color: red;\">Error getting tweets.</h3>");
+                    out.println("<h4>This may be due to:</h4>");
+                    out.println("<p>Click on 'Choose Timeline' above to save a list of whose recent tweets you want to see.</p>");
+                } else {
+                    out.println("<h3>@" + savedUser + "'s Timeline</h3><hr>");
+                    out.println("<div class=\"caption\">");
+                    for (Status status : statuses) {
+                        status.getUser().getId();
+                        String url = status.getUser().getMiniProfileImageURL();
+                        out.println("<p><img class=\"img-thumbnail\" src=" + url + "/> @" + status.getUser().getScreenName() + "<br/> " + status.getText() + "<br/> Created: <em class=\"success\">" + status.getCreatedAt() + "</em></p>");
+                    }
+                    out.println("</div>");
                 }
-                out.println("</div>");
             }
         } catch (TwitterException ex) {
             Logger.getLogger(UserTimelines.class.getName()).log(Level.SEVERE, null, ex);
