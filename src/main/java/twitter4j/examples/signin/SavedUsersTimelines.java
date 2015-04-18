@@ -53,8 +53,6 @@ public class SavedUsersTimelines extends HttpServlet {
                 out.println("<p>Click on 'Choose Timeline' above to save a list of whose recent tweets you want to see.</p>");
             } else {
                 List<Status> statuses = twitter.getUserTimeline("@" + user1);
-//            out.println("<form action=\"./post\" method=\"post\">");
-//            out.println("<label for=\"twitterUpdate\" class=\"col-sm-2 control-label\"><img class=\"img-responsive thumbnail\" src=\"" +userImage+ "\" ></label> <div class=\"col-sm-7\"><textarea cols=\"40\" rows=\"2\" name=\"twitterUpdate\" placeholder=\"Update Status\"></textarea></div>");
                 out.println("<h3>@" + user1 + "'s Timeline</h3><hr>");
                 out.println("<div class=\"caption\">");
                 for (Status status : statuses) {
