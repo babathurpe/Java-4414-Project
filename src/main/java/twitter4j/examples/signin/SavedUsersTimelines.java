@@ -46,6 +46,7 @@ public class SavedUsersTimelines extends HttpServlet {
         try {
             String userId = String.valueOf(twitter.getId());
             String user1 = getRow("Select timeline1 from timelines where user_id=?", userId);
+            String user2 = getRow("Select timeline1 from timelines where user_id=?", userId);
             System.out.println("User - " + user1);
             PrintWriter out = response.getWriter();
             if (user1.isEmpty()) {

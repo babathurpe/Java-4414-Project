@@ -106,7 +106,8 @@
 
                     <div class="col-sm-6 col-md-3">
                         <h3>Welcome ${twitter.screenName} (${twitter.id})</h3> 
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Choose Time Line</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Choose Time Line</button>
                         <br><!-- Large modal -->
 
                         <p>
@@ -127,7 +128,7 @@
                                             <p class="text-center">Timeline 1: <input type="text" name="timeline1" required autofocus /></p>
                                             <p class="text-center">Timeline 2: <input type="text" name="timeline2" required /></p>
                                             <p class="text-center">Timeline 3: <input type="text" name="timeline3" required /></p>
-                                            <p class="text-center"><input class="btn btn-info" type="submit" name="saveTimeline" value="Save Changes" style="width:10em;"/></p>
+                                            <p class="text-center"><input class="btn btn-info" type="submit" name="saveTimeline" value="Save Changes"/></p>
                                             <p class="text-center"><span style="color: red;"><b>*</b></span> You can update/change users anytime.</p>
                                             <p class="text-center"><span style="color: red;"><b>*</b></span> Fill the fields above, click on 'Save Changes'.</p>
                                             <p class="text-center"><span style="color: red;"><b>*</b></span> Refresh the page for changes (might require login).</p>
@@ -141,7 +142,7 @@
                     </div>
 
                     <div class="col-sm-6 col-md-3">
-                        <br> <a href="./logout"><img src="./images/twitter_logout.png"/></a><br>
+                        <br> <a href="./logout"><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout</button> </a><br>
                     </div>
                     <br>
                 </div>
@@ -152,26 +153,21 @@
                     <div class="col-sm-6 col-md-3 columnBorder"  id="loggedIn">
                         <h3>@${twitter.screenName}'s Timeline</h3>
 
-
                     </div>
                     <div class="col-sm-6 col-md-3 columnBorder" id="user1">
                         
                         
                     </div>
                     <div class="col-sm-6 col-md-3 columnBorder" id="user2">
-                        <h3>Showing time line 3</h3>
-                        <img class="img-responsive thumbnail" src="http://placehold.it/700x350" alt="">
+                        <h3>Showing time line 2</h3>
                         <div class="caption">
-                            <h4><a href="#">Image title</a></h4>
-                            <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                            
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-3 columnBorder" id="user3">
-                        <h3>Showing time line 4</h3>
-                        <img class="img-responsive thumbnail" src="http://placehold.it/700x350" alt="">
+                        <h3>Showing time line 3</h3>
                         <div class="caption">
-                            <h4><a href="#">Image title</a></h4>
-                            <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                        
                         </div>
                     </div>
                 </div>

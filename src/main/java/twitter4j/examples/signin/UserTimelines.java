@@ -39,7 +39,7 @@ public class UserTimelines extends HttpServlet {
             User currentUser = (User) twitter.showUser(twitter.getId());
             request.getSession().setAttribute("current_User", currentUser);
             //long userid = twitter.getId();
-            Paging paging = new Paging(1, 20);
+            Paging paging = new Paging(1, 19);
             //User currentUser = twitter.showUser(twitter.getId());
             String userImage = currentUser.getProfileImageURL();
             List<Status> rawJSON = twitter.getHomeTimeline(paging);
