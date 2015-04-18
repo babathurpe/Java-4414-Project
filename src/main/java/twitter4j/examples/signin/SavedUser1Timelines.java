@@ -30,7 +30,7 @@ import twitter4j.User;
  *
  * @author Babathurpe
  */
-public class SavedUsersTimelines extends HttpServlet {
+public class SavedUser1Timelines extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -46,7 +46,6 @@ public class SavedUsersTimelines extends HttpServlet {
         try {
             String userId = String.valueOf(twitter.getId());
             String user1 = getRow("Select timeline1 from timelines where user_id=?", userId);
-            String user2 = getRow("Select timeline1 from timelines where user_id=?", userId);
             System.out.println("User - " + user1);
             PrintWriter out = response.getWriter();
             if (user1.isEmpty()) {
@@ -106,7 +105,7 @@ public class SavedUsersTimelines extends HttpServlet {
                 //out.println("Error: Not enough data to input. Please use a URL in the form /product?name=XXX&description=XXX&quantity=#");
             }
         } catch (TwitterException ex) {
-            Logger.getLogger(SavedUsersTimelines.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavedUser1Timelines.class.getName()).log(Level.SEVERE, null, ex);
 
         }
 
@@ -125,7 +124,7 @@ public class SavedUsersTimelines extends HttpServlet {
                 sb.append(rs.getString("timeline1"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SavedUsersTimelines.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavedUser1Timelines.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println(sb);
         return sb.toString();
@@ -141,7 +140,7 @@ public class SavedUsersTimelines extends HttpServlet {
             }
             numChanges = pstmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(SavedUsersTimelines.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavedUser1Timelines.class.getName()).log(Level.SEVERE, null, ex);
         }
         return numChanges;
     }

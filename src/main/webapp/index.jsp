@@ -31,8 +31,16 @@
                     $('#loggedIn').append(data);
                 });
 
-                $.get('./savedUsers', function (data) {
+                $.get('./savedUser1', function (data) {
                     $('#user1').append(data);
+                });
+                
+                $.get('./savedUser2', function (data) {
+                    $('#user2').append(data);
+                });
+                
+                $.get('./savedUser3', function (data) {
+                    $('#user3').append(data);
                 });
 
                 $('#post').click(function () {
@@ -58,39 +66,6 @@
 
 
     <body>
-        <%!
-            public static Connection getConnection() throws SQLException {
-                Connection conn = null;
-                try {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    String jdbc = "jdbc:mysql://localhost/Sample";
-                    String user = "root";
-                    String pass = "root";
-                    conn = DriverManager.getConnection(jdbc, user, pass);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                return conn;
-            }
-
-            private String getRow(String query, String... params) {
-                StringBuilder sb = new StringBuilder();
-                try {
-                    Connection conn = DbConnection.getConnection();
-                    PreparedStatement pstmt = conn.prepareStatement(query);
-                    for (int i = 1; i <= params.length; i++) {
-                        pstmt.setString(i, params[i - 1]);
-                    }
-                    ResultSet rs = pstmt.executeQuery();
-                    while (rs.next()) {
-                        sb.append(rs.getInt("user_id"));
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                return sb.toString();
-            }
-        %>
         <div class="container-fluid">
             <tag:notloggedin>
                 <p><br><a href="signin"><img src="./images/Sign-in-with-Twitter-darker.png" id="btn1"/></a>
@@ -123,7 +98,7 @@
                                         <h4 class="modal-title" id="exampleModalLabel">Choose whose timeline to view.</h4>
                                     </div>
                                     <p class="text-center"></p>
-                                    <form name="userTimeline" class="form-horizontal" action="./savedUsers" method="post">
+                                    <form name="userTimeline" class="form-horizontal" action="./savedUser1" method="post">
                                         <div class="form-group">
                                             <p class="text-center">Timeline 1: <input type="text" name="timeline1" required autofocus /></p>
                                             <p class="text-center">Timeline 2: <input type="text" name="timeline2" required /></p>
@@ -150,28 +125,27 @@
 
                 <!-- Show Different time lines -->
                 <div class="row margin-b-2" >
+                    <!-- Column 1 - Logged in twitter owner's timeline -->
                     <div class="col-sm-6 col-md-3 columnBorder"  id="loggedIn">
                         <h3>@${twitter.screenName}'s Timeline</h3>
 
                     </div>
+                        
+                    <!-- Column 2 - Saved User1's timeline -->
                     <div class="col-sm-6 col-md-3 columnBorder" id="user1">
                         
-                        
                     </div>
+                    
+                    <!-- Column 3 - Saved User2's timeline -->
                     <div class="col-sm-6 col-md-3 columnBorder" id="user2">
-                        <h3>Showing time line 2</h3>
-                        <div class="caption">
-                            
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3 columnBorder" id="user3">
-                        <h3>Showing time line 3</h3>
-                        <div class="caption">
                         
-                        </div>
+                    </div>
+                    
+                    <!-- Column 4 - Saved User3's timeline -->
+                    <div class="col-sm-6 col-md-3 columnBorder" id="user3">
+                        
                     </div>
                 </div>
-                <!-- /.row -->
 
                 <hr>
                 <footer class="margin-tb-3">
