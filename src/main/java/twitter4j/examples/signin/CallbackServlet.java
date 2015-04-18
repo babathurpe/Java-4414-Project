@@ -35,6 +35,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import twitter4j.User;
 
 public class CallbackServlet extends HttpServlet {
     private static final long serialVersionUID = 1657390011452788111L;
@@ -44,12 +46,16 @@ public class CallbackServlet extends HttpServlet {
         Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
         RequestToken requestToken = (RequestToken) request.getSession().getAttribute("requestToken");
         String verifier = request.getParameter("oauth_verifier");
+        PrintWriter out = response.getWriter();
         try {
             twitter.getOAuthAccessToken(requestToken, verifier);
             request.getSession().removeAttribute("requestToken");
+            User currentUser = (User) twitter.showUser(twitter.getId());
+            String userImage = currentUser.getBiggerProfileImageURL();
+            out.print(userImage);
         } catch (TwitterException e) {
             throw new ServletException(e);
         }
-        response.sendRedirect(request.getContextPath() + "/");
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 }

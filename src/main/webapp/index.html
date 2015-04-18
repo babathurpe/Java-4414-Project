@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            $(document).ready(function(){
+                
+                $.get("post", function(data){
+                    
+                });
+            })
+        </script>
+      
+        
+        
+          <div>
+        
+        <h3>Welcome ${twitter.screenName} (${twitter.id})</h3> <a href="./logout"><img src="./images/twitter_logout.png"/></a>
+    </div>
+    
+    <div>
+        <form action="./post" method="post">
+            <textarea cols="80" rows="2" name="text" style="height:5em; border-color: #070708; border-radius: 5px;"></textarea>
+            <p><input class='btn' type="submit" name="post" id="post" value="update"/></p>
+        </form>
+    </div>
+
+<div id="userTimeline">
+    
+</div>
+    <p><input class='btn' type="submit" name="saveTimeline" id="timelineDialog" value="Choose Timeline" style="width:10em;"/></p>
+    
+    <div id="chooseTimeline" title="Choose Timeline">
+        <p>Choose whose timeline you want.</p>
+        <form action="./timelines" method="post">
+            <p>Timeline 1: <input type="text" name="timeline1" /></p>
+            <p>Timeline 2: <input type="text" name="timeline2" /></p>
+            <p>Timeline 3: <input type="text" name="timeline3" /></p>
+            <input class='btn' type="submit" name="saveTimeline" value="Save Changes" style="width:10em;"/>
+        </form>
+        <form name="timeline" action="index.jsp" method="POST">
+            
+        </form>
+        
+
+    </div>
+        
+        
+        
+        
+    </head>
+    <body>
+        <div>TODO write content</div>
+        <div id = "chooseTimeline">
+            <p>Choose whose timeline you want.</p>
+            <form action="./post" method="post">
+                <p>Timeline 1: <input type="text" name="timeline1" /></p>
+                <p>Timeline 2: <input type="text" name="timeline2" /></p>
+                <p>Timeline 3: <input type="text" name="timeline3" /></p>
+                <input type="submit" name="post" value="update"/>
+            </form>
+        </div>
+        
+    </body>
+</html>
+
+<!--     $(document).ready(function() {
+                $('#loggedInActivities').hide();
+                $('#logout').hide();
+                
+                $('#btn1').click(function () {
+                   $.get('./signin', { "name" : "Bob" }, function(data) {
+                      $('#loggedIn').html(data);
+                      $('#notLoggedIn').hide();
+                      $('#loggedInActivities').show();
+                      $('#logout').show();
+                   }); 
+                });
+                   
+                
+            });-->
+<style>
+         #chooseTimeline{
+            background: #D3D3D3;
+            border: 1px solid #b9cd6d;
+            color: #FFFFFF;
+            font-weight: bold;
+            padding: 2px 10px 2px;
+         }
+         
+         .btn { 
+            color: #ffffff; 
+            background-color: #1B77BD; 
+            border-color: #130269; 
+          } 
+ 
+            .btn:hover, 
+            .btn:focus, 
+            .btn:active, 
+            .btn.active, 
+            .open .dropdown-toggle.btn { 
+              color: #ffffff; 
+              background-color: #49247A; 
+              border-color: #130269; 
+            } 
+
+            .btn { 
+                height: 2em;
+                width: 5em;
+                color: #ffffff; 
+                background-color: #1B77BD; 
+                border-color: #070708; 
+                border-radius: 5px;
+                border: 0;
+            } 
+
+            .btn:hover, 
+            .btn:focus, 
+            .btn:active, 
+            .btn.active, 
+            .open .dropdown-toggle.btn { 
+                color: #ffffff; 
+                background-color: #5B6653; 
+                border-color: #070708; 
+                border-radius: 5px;
+                border: 0;
+                height: 2em;
+            } 
+
+            .btn:active, 
+            .btn.active, 
+            .open .dropdown-toggle.btn { 
+                background-image: none; 
+            } 
+
+            .btn.disabled, 
+            .btn[disabled], 
+            fieldset[disabled] .btn, 
+            .btn.disabled:hover, 
+            .btn[disabled]:hover, 
+            fieldset[disabled] .btn:hover, 
+            .btn.disabled:focus, 
+            .btn[disabled]:focus, 
+            fieldset[disabled] .btn:focus, 
+            .btn.disabled:active, 
+            .btn[disabled]:active, 
+            fieldset[disabled] .btn:active, 
+            .btn.disabled.active, 
+            .btn[disabled].active, 
+            fieldset[disabled] .btn.active { 
+          background-color: #1B77BD; 
+          border-color: #070708; 
+        } 
+
+        .btn .badge { 
+            color: #1B77BD; 
+            background-color: #ffffff; 
+        }
+    </style>

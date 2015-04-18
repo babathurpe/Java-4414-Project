@@ -1,7 +1,6 @@
-<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-         version="2.4">
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
@@ -30,6 +29,10 @@
         <servlet-class>twitter4j.examples.signin.Timelines
         </servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>insertUsers</servlet-name>
+        <servlet-class>twitter4j.examples.signin.Users</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>signin</servlet-name>
         <url-pattern>/signin</url-pattern>
@@ -49,6 +52,10 @@
     <servlet-mapping>
         <servlet-name>timelines</servlet-name>
         <url-pattern>/timelines</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>insertUsers</servlet-name>
+        <url-pattern>/insertUsers</url-pattern>
     </servlet-mapping>
     <error-page>
         <exception-type>twitter4j.TwitterException</exception-type>

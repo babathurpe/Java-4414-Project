@@ -41,8 +41,8 @@ public class PostServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //request.setCharacterEncoding("UTF-8");
-        String text = request.getParameter("text");
-        System.out.println(text);
+        String text = request.getParameter("twitterUpdate");
+        //System.out.println(text);
         Twitter twitter = (Twitter)request.getSession().getAttribute("twitter");
         try {
             twitter.updateStatus(text);
