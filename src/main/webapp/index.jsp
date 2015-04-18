@@ -31,6 +31,10 @@
                     $('#loggedIn').append(data);
                 });
 
+                $.get('./savedUsers', function (data) {
+                    $('#user1').append(data);
+                });
+
                 $('#post').click(function () {
                     alert("Tweet Posted.");
                 });
@@ -45,8 +49,10 @@
                 -moz-border-radius: 10px;
                 -webkit-border-radius: 10px;
             }
-            
-            .ButtonMargin { margin-right: 20px; }
+
+            .ButtonMargin { 
+                margin-right: 20px;
+            }
         </style>
     </head>
 
@@ -108,25 +114,26 @@
 
                     <div class="col-sm-6 col-md-3">
 
-                        <div class="modal row fade bs-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-sm" width="50%">
+                        <div class="modal row fade bs-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" >
+                            <div class="modal-dialog modal-sm" style="width:25%;">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title" id="exampleModalLabel">Choose whose timeline to view.</h4>
                                     </div>
                                     <p class="text-center"></p>
-                                    <form name="userTimeline" class="form-horizontal" action="./insertUsers" method="post">
+                                    <form name="userTimeline" class="form-horizontal" action="./savedUsers" method="post">
                                         <div class="form-group">
                                             <p class="text-center">Timeline 1: <input type="text" name="timeline1" required autofocus /></p>
                                             <p class="text-center">Timeline 2: <input type="text" name="timeline2" required /></p>
                                             <p class="text-center">Timeline 3: <input type="text" name="timeline3" required /></p>
                                             <p class="text-center"><input class="btn btn-info" type="submit" name="saveTimeline" value="Save Changes" style="width:10em;"/></p>
+                                            <p class="text-center"><span style="color: red;"><b>*</b></span> You can update/change users anytime.</p>
+                                            <p class="text-center"><span style="color: red;"><b>*</b></span> Fill the fields above, click on 'Save Changes'.</p>
+                                            <p class="text-center"><span style="color: red;"><b>*</b></span> Refresh the page for changes (might require login).</p>
                                         </div>
                                     </form>
-                                    <input type="hidden" name="hiddentimeline1" value = ""/>
-                                    <input type="hidden" name="hiddentimeline2" />
-                                    <input type="hidden" name="hiddentimeline3" />
+                                    
                                 </div>
                             </div>
                         </div>
@@ -143,19 +150,15 @@
                 <!-- Show Different time lines -->
                 <div class="row margin-b-2" >
                     <div class="col-sm-6 col-md-3 columnBorder"  id="loggedIn">
-                        <h3>@${twitter.screenName}'s Time line</h3>
+                        <h3>@${twitter.screenName}'s Timeline</h3>
 
 
                     </div>
-                    <div class="col-sm-6 col-md-3 columnBorder">
-                        <h3>Showing time line 2</h3>
-                        <img class="img-responsive thumbnail" src="http://placehold.it/700x350" alt="">
-                        <div class="caption">
-                            <h4><a href="#">Image title</a></h4>
-                            <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-                        </div>
+                    <div class="col-sm-6 col-md-3 columnBorder" id="user1">
+                        
+                        
                     </div>
-                    <div class="col-sm-6 col-md-3 columnBorder">
+                    <div class="col-sm-6 col-md-3 columnBorder" id="user2">
                         <h3>Showing time line 3</h3>
                         <img class="img-responsive thumbnail" src="http://placehold.it/700x350" alt="">
                         <div class="caption">
@@ -163,7 +166,7 @@
                             <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-3 columnBorder">
+                    <div class="col-sm-6 col-md-3 columnBorder" id="user3">
                         <h3>Showing time line 4</h3>
                         <img class="img-responsive thumbnail" src="http://placehold.it/700x350" alt="">
                         <div class="caption">

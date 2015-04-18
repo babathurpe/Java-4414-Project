@@ -30,7 +30,7 @@ import twitter4j.User;
  *
  * @author Babathurpe
  */
-public class Users extends HttpServlet {
+public class SavedUsersTimelines extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -44,35 +44,37 @@ public class Users extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Twitter twitter = (Twitter) request.getSession().getAttribute("twitter");
         try {
+            String userId = String.valueOf(twitter.getId());
+            String user1 = getRow("Select timeline1 from timelines where user_id=?", userId);
+            System.out.println("User - " + user1);
             PrintWriter out = response.getWriter();
-            User currentUser = (User) twitter.showUser(twitter.getId());
-            Paging paging = new Paging(1, 20);
-            String userImage = currentUser.getProfileImageURL();
-            List<Status> rawJSON = twitter.getHomeTimeline(paging);
-            out.println("");
-            out.println("<form action=\"./post\" method=\"post\">");
-            out.println("<label for=\"twitterUpdate\" class=\"col-sm-2 control-label\"><img class=\"img-responsive thumbnail\" src=\"" +userImage+ "\" ></label> <div class=\"col-sm-7\"><textarea cols=\"40\" rows=\"2\" name=\"twitterUpdate\" placeholder=\"Update Status\"></textarea></div>");
-            out.println("<br><input class=\"btn btn-warning\" type=\"submit\" name=\"post\" id=\"post\" value=\"update\"/></form>");
-            out.println("<div class=\"caption\">");
-            for (Status status : rawJSON) {
-                status.getUser().getId();
-                String url = status.getUser().getMiniProfileImageURL();
-                out.println("<p><img class=\"img-thumbnail\" src=" + url + "/> @" + status.getUser().getScreenName() + "<br/> " + status.getText() + "<br/> Created: <em class=\"success\">" + status.getCreatedAt() + "</em></p>");
+            if (user1.isEmpty()) {
+                out.println("<h4>You have no user saved.</h4>");
+                out.println("<p>Click on 'Choose Timeline' above to save a list of whose recent tweets you want to see.</p>");
+            } else {
+                List<Status> statuses = twitter.getUserTimeline("@" + user1);
+//            out.println("<form action=\"./post\" method=\"post\">");
+//            out.println("<label for=\"twitterUpdate\" class=\"col-sm-2 control-label\"><img class=\"img-responsive thumbnail\" src=\"" +userImage+ "\" ></label> <div class=\"col-sm-7\"><textarea cols=\"40\" rows=\"2\" name=\"twitterUpdate\" placeholder=\"Update Status\"></textarea></div>");
+                out.println("<h3>@" + user1 + "'s Timeline</h3><hr>");
+                out.println("<div class=\"caption\">");
+                for (Status status : statuses) {
+                    status.getUser().getId();
+                    String url = status.getUser().getMiniProfileImageURL();
+                    out.println("<p><img class=\"img-thumbnail\" src=" + url + "/> @" + status.getUser().getScreenName() + "<br/> " + status.getText() + "<br/> Created: <em class=\"success\">" + status.getCreatedAt() + "</em></p>");
+                }
+                out.println("</div>");
             }
-            out.println("</div>");
         } catch (TwitterException ex) {
-            Logger.getLogger(Timelines.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserTimelines.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
-     * Sends or updates the timelines table which 
-     * stores the usernames (twitter handle) to 
-     * show tweets of.
+     * Handles the HTTP <code>POST</code> method. Sends or updates the timelines
+     * table which stores the usernames (twitter handle) to show tweets of.
      * --Limitation : All 3 fields have to filled and saved.
-     * 
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -90,11 +92,11 @@ public class Users extends HttpServlet {
                 String timeline1 = request.getParameter("timeline2");
                 String timeline2 = request.getParameter("timeline3");
                 String result = getRow("Select user_id from timelines where user_id=?", userId);
-                System.out.println(result +" User ID - "+ userId);
-                if(result.isEmpty()){    
+                System.out.println(result + " User ID - " + userId);
+                if (result.isEmpty()) {
                     doUpdate("INSERT INTO timelines (user_id, timeline1, timeline2, timeline3) VALUES (?, ?, ?, ?)", userId, timeline, timeline1, timeline2);
                     //search for tweets by each user
-                } else{
+                } else {
                     doUpdate("UPDATE timelines SET timeline1 = ?, timeline2 = ?, timeline3 = ? WHERE user_id = ?", timeline, timeline1, timeline2, userId);
                     //search for tweets by each user
                 }
@@ -105,15 +107,15 @@ public class Users extends HttpServlet {
                 //out.println("Error: Not enough data to input. Please use a URL in the form /product?name=XXX&description=XXX&quantity=#");
             }
         } catch (TwitterException ex) {
-            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavedUsersTimelines.class.getName()).log(Level.SEVERE, null, ex);
 
         }
 
     }
-    
+
     private String getRow(String query, String... params) {
         StringBuilder sb = new StringBuilder();
-         try {
+        try {
             Connection conn = DbConnection.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             for (int i = 1; i <= params.length; i++) {
@@ -121,11 +123,12 @@ public class Users extends HttpServlet {
             }
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                sb.append(rs.getInt("user_id"));
+                sb.append(rs.getString("timeline1"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavedUsersTimelines.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(sb);
         return sb.toString();
     }
 
@@ -139,12 +142,12 @@ public class Users extends HttpServlet {
             }
             numChanges = pstmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SavedUsersTimelines.class.getName()).log(Level.SEVERE, null, ex);
         }
         return numChanges;
     }
-    
-    public void getTimeLine(){
-        
+
+    public void getTimeLine() {
+
     }
 }

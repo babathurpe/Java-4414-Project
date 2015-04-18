@@ -24,7 +24,7 @@ import twitter4j.User;
  *
  * @author Babathurpe
  */
-public class Timelines extends HttpServlet {
+public class UserTimelines extends HttpServlet {
 
     private static final long serialVersionUID = 2132731135996613711L;
     User user;
@@ -43,7 +43,7 @@ public class Timelines extends HttpServlet {
             //User currentUser = twitter.showUser(twitter.getId());
             String userImage = currentUser.getProfileImageURL();
             List<Status> rawJSON = twitter.getHomeTimeline(paging);
-            out.println("");
+            out.println("<hr>");
             out.println("<form class=\"form-horizontal\" action=\"./post\" method=\"post\">");
             out.println("<div class=\"form-group\"><label for=\"twitterUpdate\" class=\"col-sm-2 control-label\"><img class=\"thumbnail\" src=\"" 
                     +userImage+ "\" ></label> <div class=\"col-sm-10\"><textarea class=\"form-control\" cols=\"30\" rows=\"2\" name=\"twitterUpdate\" "
@@ -57,7 +57,7 @@ public class Timelines extends HttpServlet {
             }
             out.println("</div>");
         } catch (TwitterException ex) {
-            Logger.getLogger(Timelines.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserTimelines.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
