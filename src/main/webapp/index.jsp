@@ -31,11 +31,9 @@
                     $('#loggedIn').append(data);
                 });
 
-
                 $('#post').click(function () {
                     alert("Tweet Posted.");
                 });
-
             });
         </script>   
 
@@ -47,6 +45,8 @@
                 -moz-border-radius: 10px;
                 -webkit-border-radius: 10px;
             }
+            
+            .ButtonMargin { margin-right: 20px; }
         </style>
     </head>
 
@@ -92,7 +92,6 @@
                     <tag:loggedin>
                     <!-- Page Content -->
 
-
                 <div class="row margin-b-2 bg-info">
 
                     <div class="col-sm-6 col-md-3">
@@ -109,8 +108,6 @@
 
                     <div class="col-sm-6 col-md-3">
 
-
-
                         <div class="modal row fade bs-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-sm" width="50%">
                                 <div class="modal-content">
@@ -119,11 +116,11 @@
                                         <h4 class="modal-title" id="exampleModalLabel">Choose whose timeline to view.</h4>
                                     </div>
                                     <p class="text-center"></p>
-                                    <form class="form-horizontal" action="./insertUsers" method="post">
+                                    <form name="userTimeline" class="form-horizontal" action="./insertUsers" method="post">
                                         <div class="form-group">
-                                            <p class="text-center">Timeline 1: <input type="text" name="timeline1" /></p>
-                                            <p class="text-center">Timeline 2: <input type="text" name="timeline2" /></p>
-                                            <p class="text-center">Timeline 3: <input type="text" name="timeline3" /></p>
+                                            <p class="text-center">Timeline 1: <input type="text" name="timeline1" required autofocus /></p>
+                                            <p class="text-center">Timeline 2: <input type="text" name="timeline2" required /></p>
+                                            <p class="text-center">Timeline 3: <input type="text" name="timeline3" required /></p>
                                             <p class="text-center"><input class="btn btn-info" type="submit" name="saveTimeline" value="Save Changes" style="width:10em;"/></p>
                                         </div>
                                     </form>
@@ -187,9 +184,6 @@
                 </footer>
             </div>
             <!-- /.container-fluid -->
-
-
-
         </tag:loggedin>
     </body>
 </html>

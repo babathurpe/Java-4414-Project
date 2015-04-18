@@ -47,9 +47,8 @@ public class Timelines extends HttpServlet {
             out.println("<form class=\"form-horizontal\" action=\"./post\" method=\"post\">");
             out.println("<div class=\"form-group\"><label for=\"twitterUpdate\" class=\"col-sm-2 control-label\"><img class=\"thumbnail\" src=\"" 
                     +userImage+ "\" ></label> <div class=\"col-sm-10\"><textarea class=\"form-control\" cols=\"30\" rows=\"2\" name=\"twitterUpdate\" "
-                    + "placeholder=\"Update Status\"></textarea></div></div>");
-            out.println("<input class=\"btn btn-warning\" type=\"submit\" name=\"post\" id=\"post\" value=\"update\"/></form>");
-                    
+                    + "placeholder=\"Update Status\" required ></textarea></div><br><br><br><input class=\"btn btn-warning pull-right ButtonMargin\" type=\"submit\" name=\"post\" id=\"post\" value=\"Post Tweet\"/></div>");
+            out.println("</form>");
             out.println("<div class=\"caption\">");
             for (Status status : rawJSON) {
                 status.getUser().getId();
